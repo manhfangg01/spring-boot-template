@@ -16,14 +16,13 @@ java {
 }
 
 def env = { String key ->
-    project.findProperty(key)?.toString()
+    return  project.findProperty(key)?.toString()
             ?: System.getenv(key)
-            ?: { throw new GradleException("Missing required property: $key") }()
 }
 
-def dbUrl      = env("DB_MYSQL_URL")
-def dbUsername = env("DB_MYSQL_USERNAME")
-def dbPassword = env("DB_MYSQL_PASSWORD")
+final def dbUrl      = env("db.mysql.url")
+final def dbUsername = env("db.mysql.username")
+final def dbPassword = env("db.mysql.password")
 
 bootRun {
     environment "DB_MYSQL_URL", dbUrl
@@ -70,6 +69,11 @@ liquibase {
 
 tasks.named('test') {
     useJUnitPlatform()
+
+    // Environment variables for tests
+    environment "DB_MYSQL_URL", dbUrl
+    environment "DB_MYSQL_USERNAME", dbUsername
+    environment "DB_MYSQL_PASSWORD", dbPassword
 }
 
 tasks.withType(Test).configureEach {

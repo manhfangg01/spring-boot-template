@@ -17,4 +17,4 @@ spring:
     contexts: dev
     drop-first: true
 logging:
-    config: classpath:log4j2-dev.yaml
+  config: classpath:log4j2-dev.yaml

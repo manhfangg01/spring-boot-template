@@ -2,6 +2,7 @@ package com.osamuharu.user.application.service;
 
 import com.osamuharu.user.application.mapper.UserMapper;
 import com.osamuharu.user.application.usecase.CreateUserUseCase;
+import com.osamuharu.user.application.usecase.DeleteUseUseCase;
 import com.osamuharu.user.application.usecase.UpdateUserUseCase;
 import com.osamuharu.user.domain.repository.UserRepository;
 import com.osamuharu.user.presentation.dto.request.CreateUserDto;
@@ -17,6 +18,7 @@ import java.util.List;
 public class UserService {
 	private final CreateUserUseCase createUserUseCase;
 	private final UpdateUserUseCase updateUserUseCase;
+	private final DeleteUseUseCase deleteUseUseCase;
 	private final UserRepository userRepository;
 	private final UserMapper mapper;
 	
@@ -48,6 +50,6 @@ public class UserService {
 	}
 	
 	public void deleteUser(Long id) {
-		userRepository.deleteById(id);
+		deleteUseUseCase.execute(id);
 	}
 }

@@ -17,7 +17,7 @@ public class UpdateUserUseCase {
 		                            .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
 		
 		if (user.getEmail() != null) {
-			if (repository.existsEmail(user.getEmail())) {
+			if (repository.existsByEmail(user.getEmail())) {
 				throw new IllegalArgumentException("Email already exists: " + user.getEmail());
 			}
 			

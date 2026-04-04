@@ -13,7 +13,7 @@ public class CreateUserUseCase {
 			throw new IllegalArgumentException("User cannot be null");
 		}
 		
-		if (repository.existsEmail(user.getEmail())) {
+		if (repository.existsByEmail(user.getEmail())) {
 			throw new IllegalArgumentException("Email already exists: " + user.getEmail());
 		}
 		

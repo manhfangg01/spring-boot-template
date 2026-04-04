@@ -17,8 +17,7 @@ public class UpdateUserDto {
 	
 	@Size(min = 4, max = 50, message = "Username must be between 4 and 50 characters")
 	@Pattern(regexp = "^[a-zA-Z0-9._-]+$", message = "Username can only contain letters, numbers, dots, hyphens, and" +
-			" " +
-			"underscores")
+			" " + "underscores")
 	private String username;
 	
 	@Size(min = 8, max = 255, message = "Password must be at least 8 characters long")

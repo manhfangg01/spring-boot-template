@@ -16,6 +16,21 @@ public class UpdateUserUseCase {
 		User existsUser = repository.findById(id)
 		                            .orElseThrow(() -> new RuntimeException("User not found with id: " + id));
 		
+		if (user.getEmail() != null) {
+			if (repository.existsEmail(user.getEmail())) {
+				throw new IllegalArgumentException("Email already exists: " + user.getEmail());
+			}
+			
+			existsUser.changeEmail(user.getEmail());
+		}
+		
+		if (user.getUsername() != null) {
+			if (repository.existsByUsername(user.getUsername())) {
+				throw new IllegalArgumentException("Username already exists: " + user.getUsername());
+			}
+			existsUser.changeUsername(user.getUsername());
+		}
+		
 		if (user.getFirstName() != null) {
 			existsUser.changeFirstName(user.getFirstName());
 		}
@@ -24,21 +39,8 @@ public class UpdateUserUseCase {
 			existsUser.changeLastName(user.getLastName());
 		}
 		
-		if (user.getEmail() != null && !existsUser.getEmail()
-		                                          .equals(user.getEmail())) {
-			if (repository.existsEmail(user.getEmail())) {
-				throw new IllegalArgumentException("Email already exists: " + user.getEmail());
-			}
-			
-			existsUser.changeEmail(user.getEmail());
-		}
-		
-		if (user.getUsername() != null && !existsUser.getUsername()
-		                                             .equals(user.getUsername())) {
-			if (repository.existsByUsername(user.getUsername())) {
-				throw new IllegalArgumentException("Username already exists: " + user.getUsername());
-			}
-			existsUser.changeUsername(user.getUsername());
+		if (user.getPassword() != null) {
+			existsUser.changePassword(user.getPassword());
 		}
 		
 		return repository.save(existsUser);

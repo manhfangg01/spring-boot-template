@@ -10,7 +10,7 @@ public class CreateUserUseCase {
 	
 	public User execute(User user) {
 		if (user == null) {
-			return null;
+			throw new IllegalArgumentException("User cannot be null");
 		}
 		
 		if (repository.existsEmail(user.getEmail())) {

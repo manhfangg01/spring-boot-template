@@ -63,6 +63,7 @@ public class UserMapperImpl implements UserMapper {
 		}
 		
 		UserDto userDto = new UserDto();
+		userDto.setId(user.getId());
 		userDto.setUsername(user.getUsername());
 		userDto.setFirstName(user.getFirstName());
 		userDto.setLastName(user.getLastName());

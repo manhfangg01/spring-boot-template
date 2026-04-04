@@ -1,0 +1,45 @@
+[versions]
+# Plugins
+springBoot = "4.0.4"
+springDepManagement = "1.1.7"
+liquibasePlugin = "2.2.2"
+dockerComposePlugin = "0.17.12"
+
+# Libraries
+liquibase = "5.0.2"
+liquibaseSpringBoot = "4.1.0-M4"
+mysql = "8.3.0"
+picocli = "4.7.7"
+disruptor = "4.0.0"
+lombok = "1.18.42"
+
+[libraries]
+# Spring Boot Starters
+spring-boot-starter = { group = "org.springframework.boot", name = "spring-boot-starter"}
+spring-boot-starter-web = { group = "org.springframework.boot", name = "spring-boot-starter-web" }
+spring-boot-starter-data-jpa = { group = "org.springframework.boot", name = "spring-boot-starter-data-jpa" }
+
+# Database
+mysql-connector = { group = "com.mysql", name = "mysql-connector-j", version.ref = "mysql" }
+
+# Liquibase
+liquibase-core = { group = "org.liquibase", name = "liquibase-core", version.ref = "liquibase" }
+spring-boot-starter-liquibase = { group = "org.springframework.boot", name = "spring-boot-starter-liquibase", version.ref = "liquibaseSpringBoot"}
+
+# Logging
+spring-boot-starter-log4j2 = { group = "org.springframework.boot", name = "spring-boot-starter-log4j2" }
+
+# Utilities
+picocli = { group = "info.picocli", name = "picocli", version.ref = "picocli" }
+disruptor = { group = "com.lmax", name = "disruptor", version.ref = "disruptor" }
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+jackson-dataformat-yaml = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-yaml" }
+
+# Testing
+spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "springBoot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "springDepManagement" }
+liquibase = { id = "org.liquibase.gradle", version.ref = "liquibasePlugin" }
+docker-compose = { id = "com.avast.gradle.docker-compose", version.ref = "dockerComposePlugin" }

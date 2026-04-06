@@ -5,6 +5,7 @@ springDepManagement = "1.1.7"
 liquibasePlugin = "2.2.2"
 dockerComposePlugin = "0.17.12"
 
+
 # Libraries
 liquibase = "5.0.2"
 liquibaseSpringBoot = "4.1.0-M4"
@@ -37,6 +38,9 @@ disruptor = { group = "com.lmax", name = "disruptor", version.ref = "disruptor" 
 lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
 jackson-dataformat-yaml = { group = "com.fasterxml.jackson.dataformat", name = "jackson-dataformat-yaml" }
 mapstruct = { group = "org.mapstruct", name = "mapstruct", version.ref = "mapstruct" }
+
+# Security
+spring-boot-starter-security = { group = "org.springframework.boot", name = "spring-boot-starter-security", version.ref = "springBoot" }
 
 # Testing
 spring-boot-starter-test = { group = "org.springframework.boot", name = "spring-boot-starter-test" }

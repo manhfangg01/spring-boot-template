@@ -1,4 +1,4 @@
-package com.osamuharu.core.entity;
+package com.osamuharu.shared.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;

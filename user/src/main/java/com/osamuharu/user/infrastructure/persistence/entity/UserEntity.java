@@ -1,6 +1,6 @@
 package com.osamuharu.user.infrastructure.persistence.entity;
 
-import com.osamuharu.core.entity.IdAutoIncrement;
+import com.osamuharu.shared.entity.IdAutoIncrement;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;

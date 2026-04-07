@@ -5,6 +5,7 @@ bootJar { enabled = false }
 jar { enabled = true }
 
 dependencies {
+    implementation project(':shared')
     implementation libs.spring.boot.starter.web
     implementation libs.spring.boot.starter.security
     implementation libs.spring.boot.starter.webmvc

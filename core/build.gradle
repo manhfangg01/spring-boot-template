@@ -7,4 +7,6 @@ jar { enabled = true }
 dependencies {
     implementation libs.spring.boot.starter.web
     implementation libs.spring.boot.starter.security
+    implementation libs.spring.boot.starter.webmvc
+    implementation libs.springdoc.openapi.ui
 }

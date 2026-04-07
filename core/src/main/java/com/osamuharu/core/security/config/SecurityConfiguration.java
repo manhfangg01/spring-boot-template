@@ -10,20 +10,28 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 @Configuration
 @EnableMethodSecurity
 @RequiredArgsConstructor
 @EnableWebSecurity
 public class SecurityConfiguration {
-	final String[] PUBLIC_ENDPOINTS = {"/api/auth/**", "/api/public/**"};
+	final String[] PUBLIC_ENDPOINTS = {"/api/{version}/auth/**", "/api/{version}/public/**"};
+	final String[] SWAGGER_ENDPOINTS = {"/v3/api-docs", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html"};
 	
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) {
+		final String[] COMBINED_ENDPOINTS = Stream.concat(
+				                                          Arrays.stream(PUBLIC_ENDPOINTS),
+				                                          Arrays.stream(SWAGGER_ENDPOINTS))
+		                                          .toArray(String[]::new);
 		http
 				.csrf(AbstractHttpConfigurer::disable)
 				.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 				.authorizeHttpRequests(auth -> auth
-						.requestMatchers(PUBLIC_ENDPOINTS)
+						.requestMatchers(COMBINED_ENDPOINTS)
 						.permitAll()
 						.anyRequest()
 						.authenticated()

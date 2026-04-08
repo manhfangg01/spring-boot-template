@@ -1,5 +1,6 @@
 package com.osamuharu.user.application.config;
 
+import com.osamuharu.shared.provider.PasswordProvider;
 import com.osamuharu.user.application.usecase.CreateUserUseCase;
 import com.osamuharu.user.application.usecase.DeleteUseUseCase;
 import com.osamuharu.user.application.usecase.UpdateUserUseCase;
@@ -11,21 +12,22 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @RequiredArgsConstructor
 public class UseCaseConfiguration {
-	
-	private final UserRepository userRepository;
-	
-	@Bean
-	CreateUserUseCase createUserUseCase() {
-		return new CreateUserUseCase(userRepository);
-	}
-	
-	@Bean
-	UpdateUserUseCase updateUserUseCase() {
-		return new UpdateUserUseCase(userRepository);
-	}
-	
-	@Bean
-	DeleteUseUseCase deleteUseUseCase() {
-		return new DeleteUseUseCase(userRepository);
-	}
+
+  private final UserRepository userRepository;
+  private final PasswordProvider passwordProvider;
+
+  @Bean
+  CreateUserUseCase createUserUseCase() {
+    return new CreateUserUseCase(userRepository, passwordProvider);
+  }
+
+  @Bean
+  UpdateUserUseCase updateUserUseCase() {
+    return new UpdateUserUseCase(userRepository, passwordProvider);
+  }
+
+  @Bean
+  DeleteUseUseCase deleteUseUseCase() {
+    return new DeleteUseUseCase(userRepository);
+  }
 }

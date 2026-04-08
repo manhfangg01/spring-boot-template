@@ -1,5 +1,7 @@
 package com.osamuharu.core.config;
 
+import com.osamuharu.core.filter.ExceptionFilter;
+import com.osamuharu.core.filter.JwtFilter;
 import java.util.Arrays;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity
@@ -31,6 +35,9 @@ public class SecurityConfiguration {
       "/swagger-ui.html"};
 
   private final UserDetailsService userDetailsService;
+  private final AuthenticationEntryPoint authenticationEntryPoint;
+  private final ExceptionFilter exceptionFilter;
+  private final JwtFilter jwtFilter;
 
   @Bean
   public PasswordEncoder passwordEncoder() {
@@ -66,7 +73,11 @@ public class SecurityConfiguration {
             .permitAll()
             .anyRequest()
             .authenticated()
-        );
+        )
+        .exceptionHandling(
+            exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
+        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+        .addFilterBefore(exceptionFilter, JwtFilter.class);
 
     return http.build();
   }

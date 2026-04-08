@@ -1,4 +1,4 @@
-package com.osamuharu.auth.presentation.dto;
+package com.osamuharu.auth.presentation.dto.request;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class RegisterDto {
+public class RegisterRequestDto {
 
   @NotBlank(message = "First name must not be blank")
   @Size(max = 50, message = "First name must not exceed 50 characters")

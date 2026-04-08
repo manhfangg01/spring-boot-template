@@ -50,6 +50,12 @@ public class UserRepositoryAdapter implements UserRepository {
   }
 
   @Override
+  public Optional<User> findByEmail(String email) {
+    return jpaRepository.findByEmail(email)
+        .map(mapper::toDomain);
+  }
+
+  @Override
   public boolean existsByUsername(String username) {
     return jpaRepository.existsByUsername(username);
   }

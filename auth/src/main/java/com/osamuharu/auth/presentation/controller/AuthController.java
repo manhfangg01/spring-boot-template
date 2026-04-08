@@ -1,7 +1,9 @@
 package com.osamuharu.auth.presentation.controller;
 
 import com.osamuharu.auth.application.service.AuthService;
-import com.osamuharu.auth.presentation.dto.RegisterDto;
+import com.osamuharu.auth.presentation.dto.request.LoginRequestDto;
+import com.osamuharu.auth.presentation.dto.request.RegisterRequestDto;
+import com.osamuharu.auth.presentation.dto.response.LoginResponseDto;
 import com.osamuharu.shared.annotation.ResponseMessage;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +24,14 @@ public class AuthController {
   @PostMapping("/register")
   @ResponseStatus(HttpStatus.CREATED)
   @ResponseMessage("Register successfully")
-  public boolean register(@Valid @RequestBody RegisterDto dto) {
+  public boolean register(@Valid @RequestBody RegisterRequestDto dto) {
     authService.register(dto);
     return true;
+  }
+
+  @PostMapping("/login")
+  @ResponseMessage("Login successfully")
+  public LoginResponseDto login(@Valid @RequestBody LoginRequestDto dto) {
+    return authService.login(dto);
   }
 }

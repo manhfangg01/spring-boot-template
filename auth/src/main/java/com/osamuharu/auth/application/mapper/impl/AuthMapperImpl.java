@@ -1,25 +1,42 @@
 package com.osamuharu.auth.application.mapper.impl;
 
 import com.osamuharu.auth.application.mapper.AuthMapper;
-import com.osamuharu.auth.presentation.dto.RegisterDto;
+import com.osamuharu.auth.presentation.dto.request.RegisterRequestDto;
+import com.osamuharu.auth.presentation.dto.response.LoginResponseDto;
+import com.osamuharu.shared.entity.Token;
 import com.osamuharu.user.domain.entity.User;
+import java.util.List;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AuthMapperImpl implements AuthMapper {
 
   @Override
-  public User toDomain(RegisterDto registerDto) {
-    if (registerDto == null) {
+  public User toDomain(RegisterRequestDto registerRequestDto) {
+    if (registerRequestDto == null) {
       return null;
     }
 
     return User.builder()
-        .firstName(registerDto.getFirstName())
-        .lastName(registerDto.getLastName())
-        .username(registerDto.getUsername())
-        .email(registerDto.getEmail())
-        .password(registerDto.getPassword())
+        .firstName(registerRequestDto.getFirstName())
+        .lastName(registerRequestDto.getLastName())
+        .username(registerRequestDto.getUsername())
+        .email(registerRequestDto.getEmail())
+        .password(registerRequestDto.getPassword())
         .build();
+  }
+
+  @Override
+  public LoginResponseDto toDto(User user, List<Token> token, String type) {
+    if (user == null) {
+      return null;
+    }
+
+    LoginResponseDto responseDto = new LoginResponseDto();
+    responseDto.setUsername(user.getUsername());
+    responseDto.setTokens(token);
+    responseDto.setType(type);
+    
+    return responseDto;
   }
 }

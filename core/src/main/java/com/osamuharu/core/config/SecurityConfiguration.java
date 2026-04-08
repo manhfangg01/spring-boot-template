@@ -29,8 +29,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfiguration {
 
-  private final String[] PUBLIC_ENDPOINTS = {"/api/{version}/auth/**", "/api/{version}/public/**",
-      "/api/{version}/users/**"};
+  private final String[] PUBLIC_ENDPOINTS = {"/api/{version}/auth/**", "/api/{version}/public/**"};
   private final String[] SWAGGER_ENDPOINTS = {"/v3/api-docs", "/v3/api-docs/**", "/swagger-ui/**",
       "/swagger-ui.html"};
 
@@ -74,6 +73,7 @@ public class SecurityConfiguration {
             .anyRequest()
             .authenticated()
         )
+        .authenticationProvider(authenticationProvider())
         .exceptionHandling(
             exception -> exception.authenticationEntryPoint(authenticationEntryPoint))
         .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)

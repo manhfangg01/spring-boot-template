@@ -46,7 +46,7 @@ public class UserController {
   }
 
   @PostMapping
-  @ResponseStatus(HttpStatus.OK)
+  @ResponseStatus(HttpStatus.CREATED)
   @ResponseMessage("Create user successfully")
   public UserDto create(@Valid @RequestBody CreateUserDto createUserDto) {
     return service.createUser(createUserDto);

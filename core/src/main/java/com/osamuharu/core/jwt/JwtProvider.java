@@ -1,6 +1,7 @@
 package com.osamuharu.core.jwt;
 
 import com.osamuharu.shared.entity.Subject;
+import com.osamuharu.shared.entity.Token;
 import com.osamuharu.shared.provider.TokenProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -25,13 +26,20 @@ public class JwtProvider implements TokenProvider {
   }
 
   @Override
-  public String generateAccessToken(Subject subject) {
-    return Jwts.builder()
+  public Token generateAccessToken(Subject subject) {
+    Date expiresIn = new Date(System.currentTimeMillis() + jwtProperties.getAccessTokenExpire());
+    String accessToken = Jwts.builder()
         .subject(subject.getUsername())
         .issuedAt(new Date())
-        .expiration(new Date(System.currentTimeMillis() + jwtProperties.getAccessTokenExpire()))
+        .expiration(expiresIn)
         .signWith(secretKey())
         .compact();
+
+    return Token.
+        builder()
+        .token(accessToken)
+        .expiresIn(expiresIn.getTime())
+        .build();
   }
 
   @Override
